@@ -3,7 +3,9 @@ package com.thornton.messaging.activity;
 import java.util.ArrayList;
 import com.thornton.messaging.R;
 import com.thornton.messaging.adapters.ConversationAdapter;
+import com.thornton.messaging.pojo.Contact;
 import com.thornton.messaging.pojo.Message;
+import com.thornton.messaging.providers.ContactsContentProvider;
 import com.thornton.messaging.receivers.BaseReceiver;
 import com.thornton.messaging.receivers.DeliveryReceiver;
 import com.thornton.messaging.receivers.IntentReceiver;
@@ -34,14 +36,30 @@ public class ConversationActivity extends Activity {
 	
 	private ConversationAdapter adapter;
 	
+	private Contact contact;
+	
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_conversation);
         
+        final Intent intent = this.getIntent();
+        
+        Bundle bundle = intent.getExtras();
+        if(null != bundle){
+        	setContactInfo(bundle);
+        }
+        else{
+        	contact = ContactsContentProvider.getContact(this, "18155928212");
+        }
+        
         messages = (ListView)findViewById(R.id.messages);
-        adapter = new ConversationAdapter(this, R.layout.message_item, new ArrayList<Message>());
+        adapter = new ConversationAdapter(this, R.layout.message_item, new ArrayList<Message>(), contact);
         messages.setAdapter(adapter);
+        
+        //TODO: for testing
+        //TODO: insert a random number here
+        //addMessage(new Message("Hey", true,  ));
         
         sendPendingIntent = PendingIntent.getBroadcast(this, 0, new Intent(BaseReceiver.SENT), 0);
         deliveredPendingIntnent = PendingIntent.getBroadcast(this, 0, new Intent(BaseReceiver.DELIVERED), 0);
@@ -53,7 +71,15 @@ public class ConversationActivity extends Activity {
         registerReceiver(intentReceiver, filter);
     }
     
-    @Override
+    private void setContactInfo(Bundle bundle) {
+		final String name = bundle.getString(Contact.NAME);
+		final String number = bundle.getString(Contact.NUMBER);
+		final int image = bundle.getInt(Contact.IMAGE);
+		
+		contact = new Contact(name, number, image);
+	}
+
+	@Override
     public void onResume(){
     	super.onResume();
      	
@@ -84,8 +110,9 @@ public class ConversationActivity extends Activity {
     	final EditText message = (EditText) findViewById(R.id.message);
     	
     	if(TextUtils.isEmpty(message.getText())){return;}
-    	manager.sendTextMessage("5556", null, message.getText().toString(), sendPendingIntent, deliveredPendingIntnent);
-    	addMessage(new Message(message.getText().toString(), false));
+    	manager.sendTextMessage(contact.getPhoneNumber(), null, message.getText().toString(), sendPendingIntent, deliveredPendingIntnent);
+    	addMessage(new Message(message.getText().toString(), false, null));
+    	message.setText("");
     }
 	
 	@Override

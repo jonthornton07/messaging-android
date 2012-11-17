@@ -18,6 +18,7 @@ public class IntentReceiver extends BaseReceiver{
 	public void onReceive(final Context context, final Intent intent) {
 		final String message = intent.getExtras().getString(SMS);
 		final boolean isToMe = intent.getBooleanExtra(IS_TO_ME, false);
-		activity.addMessage(new Message(message, isToMe));
+		final String number = intent.getStringExtra(NUMBER);
+		activity.addMessage(new Message(message, isToMe, number));
 	}
 }

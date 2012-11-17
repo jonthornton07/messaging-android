@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content" >
+
+    <QuickContactBadge
+	     android:id="@+id/contact_image"
+	     android:layout_width="wrap_content"
+	     android:layout_height="wrap_content"
+	     android:layout_alignParentLeft="true"
+	     android:layout_alignParentTop="true"
+	     android:layout_marginLeft="5dp" 
+	     android:maxWidth="20dp"
+	     android:maxHeight="20dp"
+	     android:scaleType="fitXY"
+	     android:src="@drawable/uknown_contact"
+	     android:visibility="visible"/>
+
+    <TextView
+        android:id="@+id/contact_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_toRightOf="@+id/contact_image"
+        android:maxLines="1"
+        android:text="Name" />
+    
+    <TextView 
+        android:id="@+id/last_message"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/contact_name"
+        android:layout_toRightOf="@+id/contact_image"
+        android:maxLines="1"
+        android:text="Last Message" />
+
+</RelativeLayout>

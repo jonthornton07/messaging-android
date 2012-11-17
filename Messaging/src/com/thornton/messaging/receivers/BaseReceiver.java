@@ -15,6 +15,8 @@ public abstract class BaseReceiver extends BroadcastReceiver{
 	public static final String SENT = "SMS Sent";
 	
 	public static final String SMS_RECEIVED_ACTION = "SMS_RECEIVED_ACTION";
+	
+	public static final String NUMBER = "number";
 
 	protected void makeToast(Context context, String message) {
 		Toast.makeText(context, message, Toast.LENGTH_SHORT).show();	

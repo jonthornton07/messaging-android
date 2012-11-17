@@ -8,6 +8,8 @@ public class DeliveryReceiver extends BaseReceiver {
 
 	@Override
 	public void onReceive(Context context, Intent intent) {
+		
+		//TODO:  Show some image for this or something
 		switch(getResultCode()){
 			case Activity.RESULT_OK:
 				makeToast(context, DELIVERED);
