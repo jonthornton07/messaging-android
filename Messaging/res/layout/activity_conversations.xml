@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" 
+    android:orientation="vertical">
+
+    <RelativeLayout 
+        android:id="@+id/header"
+        android:layout_width="wrap_content"
+	    android:layout_height="wrap_content">
+		<TextView
+		    android:id="@+id/app_name"
+		    android:layout_width="wrap_content"
+		    android:layout_height="wrap_content"
+		    android:layout_alignParentTop="true"
+		    android:layout_alignParentLeft="true"
+		    android:text="@string/app_name"/>
+		
+		<Button 
+		    android:id="@+id/new_conversation"
+		    android:layout_width="wrap_content"
+		    android:layout_height="wrap_content"
+		    android:text="New"
+		    android:layout_alignParentTop="true"
+		    android:layout_alignParentRight="true"/>
+    </RelativeLayout>
+    <ListView
+        android:id="@+id/conversations"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_below="@+id/header"
+        android:text="Body" />
+
+
+</RelativeLayout>
